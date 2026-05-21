@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>For Rouhi — May 21, 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700;1,6..96,900&family=Big+Shoulders+Display:wght@700;900&family=Space+Mono:wght@400;700&family=Caveat:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0c0a08;
+    --bg-2: #161210;
+    --paper: #f3ead8;
+    --paper-soft: #d8cfbf;
+    --ink: #f5eee0;
+    --ink-dim: #b9b0a0;
+    --amber: #f6a83a;
+    --rose: #ee5a78;
+    --green: #b6c47a;
+    --line: rgba(245,238,224,0.18);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  ::selection { background: var(--amber); color: #0c0a08; }
+
+  .serif { font-family: 'Bodoni Moda', 'Times New Roman', serif; }
+  .italic { font-style: italic; }
+  .punch { font-family: 'Big Shoulders Display', Impact, sans-serif; font-weight: 900; letter-spacing: 0.02em; }
+  .hand { font-family: 'Caveat', cursive; }
+  .ar { font-family: 'Amiri', serif; }
+  .mono { font-family: 'Space Mono', ui-monospace, monospace; }
+
+  /* ─────────────────────────────────────────────
+     VIDEO BACKGROUND
+     ───────────────────────────────────────────── */
+  .bg-video, .bg-video-wrap {
+    position: fixed; inset: 0;
+    width: 100%; height: 100%;
+    z-index: -2;
+    overflow: hidden;
+  }
+  .bg-video {
+    object-fit: cover;
+    filter: saturate(1.15) contrast(1.05) brightness(0.55) blur(3px);
+    transform: scale(1.06);
+    transition: filter 1.2s ease, transform 30s ease;
+  }
+  .bg-tint {
+    position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(246,168,58,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(238,90,120,0.16) 0%, transparent 55%),
+      linear-gradient(180deg, rgba(12,10,8,0.45) 0%, rgba(12,10,8,0.7) 60%, rgba(12,10,8,0.95) 100%);
+    pointer-events: none;
+  }
+  .grain {
+    position: fixed; inset: 0; z-index: 100;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: overlay;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ─────────────────────────────────────────────
+     INTRO OVERLAY (needed to unlock autoplay audio)
+     ───────────────────────────────────────────── */
+  .intro {
+    position: fixed; inset: 0; z-index: 1000;
+    background: #0c0a08;
+    display: grid; place-items: center;
+    padding: 24px;
+    text-align: center;
+    transition: opacity 0.9s ease, visibility 0.9s ease;
+    overflow: hidden;
+  }
+  .intro::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 60%, rgba(246,168,58,0.25), transparent 60%),
+      linear-gradient(180deg, #0c0a08 0%, #1a1410 100%);
+  }
+  .intro.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+  .intro-inner { position: relative; z-index: 2; max-width: 640px; }
+  .intro-eyebrow {
+    font-family: 'Space Mono', monospace;
+    color: var(--amber);
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.2s forwards;
+  }
+  .intro-eyebrow .pulse {
+    display: inline-block; width: 7px; height: 7px; background: var(--amber);
+    border-radius: 50%; margin-right: 10px; vertical-align: middle;
+    animation: blink 1.2s ease-in-out infinite;
+  }
+  @keyframes blink { 50% { opacity: 0.25; } }
+  .intro-title {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(54px, 12vw, 130px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    margin: 0;
+    opacity: 0;
+    animation: fadeUp 1.1s ease 0.4s forwards;
+  }
+  .intro-title .red { color: var(--rose); }
+  .intro-sub {
+    font-family: 'Space Mono', monospace;
+    color: var(--ink-dim);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    margin: 32px 0 38px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 1.1s ease 0.7s forwards;
+  }
+  .intro-sub b { color: var(--paper); font-weight: 400; }
+  .intro-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: transparent;
+    color: var(--paper);
+    border: 1px solid var(--paper-soft);
+    padding: 16px 28px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    opacity: 0;
+    animation: fadeUp 1.1s ease 1.0s forwards;
+  }
+  .intro-btn:hover {
+    background: var(--paper);
+    color: var(--bg);
+    letter-spacing: 0.40em;
+  }
+  .intro-btn .arr {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+  .intro-btn:hover .arr { transform: translateX(6px); }
+  .intro-foot {
+    position: absolute;
+    bottom: 24px; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    opacity: 0;
+    animation: fadeUp 1.1s ease 1.2s forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─────────────────────────────────────────────
+     TOP NAV / AUDIO TOGGLE
+     ───────────────────────────────────────────── */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 18px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    pointer-events: none;
+  }
+  .topbar > * { pointer-events: auto; }
+  .mark {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--paper);
+    letter-spacing: -0.01em;
+  }
+  .mark .dot { color: var(--rose); }
+  .audio-toggle {
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 14px 8px 10px;
+    background: rgba(20,16,12,0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--paper);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .audio-toggle:hover { background: rgba(40,30,24,0.7); }
+  .eq {
+    display: inline-flex; align-items: end; gap: 2px; height: 14px;
+  }
+  .eq span {
+    display: inline-block; width: 3px; background: var(--amber);
+    animation: eq 0.9s ease-in-out infinite;
+  }
+  .eq span:nth-child(1) { height: 60%; animation-delay: -0.1s; }
+  .eq span:nth-child(2) { height: 90%; animation-delay: -0.4s; }
+  .eq span:nth-child(3) { height: 40%; animation-delay: -0.7s; }
+  .eq span:nth-child(4) { height: 75%; animation-delay: -0.2s; }
+  @keyframes eq {
+    0%, 100% { transform: scaleY(0.35); }
+    50% { transform: scaleY(1); }
+  }
+  .audio-toggle.muted .eq span { animation-play-state: paused; opacity: 0.3; }
+
+  /* ─────────────────────────────────────────────
+     LAYOUT
+     ───────────────────────────────────────────── */
+  main { position: relative; z-index: 10; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+  .section { padding: 100px 0; position: relative; }
+
+  /* ─────────────────────────────────────────────
+     HERO
+     ───────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    padding: 90px 0 70px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative;
+  }
+  .hero-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--amber);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .eyebrow .live {
+    width: 7px; height: 7px; background: var(--amber); border-radius: 50%;
+    animation: blink 1.2s ease-in-out infinite;
+  }
+  .hero-tag {
+    text-align: right;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    line-height: 1.7;
+  }
+  .hero-tag b { color: var(--paper); font-weight: 400; }
+
+  .hero-mid {
+    margin: 60px 0;
+    text-align: left;
+  }
+  .hero-greet {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1;
+    color: var(--ink-dim);
+    margin-bottom: 14px;
+  }
+  .hero-greet .who { color: var(--paper); }
+  .hero-title {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(72px, 16vw, 220px);
+    line-height: 0.86;
+    letter-spacing: -0.035em;
+    color: var(--paper);
+    margin: 0;
+    text-wrap: balance;
+  }
+  .hero-title .amber { color: var(--amber); }
+  .hero-title .rose { color: var(--rose); font-style: italic; }
+  .hero-title .roman { font-style: normal; font-weight: 700; }
+  .hero-title .strike { text-decoration: line-through; text-decoration-thickness: 4px; color: var(--ink-dim); font-size: 0.55em; vertical-align: middle; margin-right: 0.2em; }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    align-items: end;
+  }
+  .clock {
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+  .clock .lbl {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 8px;
+  }
+  .clock .lbl .flag { margin-right: 6px; }
+  .clock .t {
+    font-family: 'Bodoni Moda', serif;
+    font-weight: 400;
+    font-size: clamp(28px, 3.6vw, 44px);
+    color: var(--paper);
+    line-height: 1;
+  }
+  .clock .t .ampm {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+    margin-left: 6px;
+    vertical-align: super;
+  }
+  .clock .sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+  }
+  .clock.center-block {
+    grid-column: span 2;
+    text-align: left;
+  }
+  .clock.center-block .arrow {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: clamp(40px, 5vw, 64px);
+    color: var(--amber);
+    line-height: 1;
+  }
+  .clock.center-block .km {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    margin-top: 6px;
+    letter-spacing: 0.16em;
+  }
+
+  /* ─────────────────────────────────────────────
+     LYRIC PANEL
+     ───────────────────────────────────────────── */
+  .lyric-section {
+    padding: 120px 0;
+    border-top: 1px solid var(--line);
+  }
+  .lyric-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .lyric-side .stamp {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    border: 1px solid var(--amber);
+    padding: 5px 10px;
+    margin-bottom: 24px;
+  }
+  .lyric-side h2 {
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 900;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 0.95;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+    color: var(--paper);
+    letter-spacing: 0.01em;
+  }
+  .lyric-side p {
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0 0 12px;
+    max-width: 380px;
+  }
+  .lyric-side p b { color: var(--paper); font-weight: 400; }
+
+  .lyric-card {
+    position: relative;
+    padding: 50px 44px;
+    background: rgba(20,16,12,0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.45),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .lyric-card::before {
+    content: "“";
+    position: absolute;
+    top: -28px; left: 28px;
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 140px;
+    color: var(--amber);
+    line-height: 1;
+  }
+  .lyric-from {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .lyric-quote {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(26px, 3.4vw, 40px);
+    line-height: 1.15;
+    color: var(--paper);
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  .lyric-quote .amber { color: var(--amber); }
+  .lyric-arrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--rose);
+    letter-spacing: 0.18em;
+    margin: 18px 0 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .lyric-arrow .line { flex: 1; height: 1px; background: var(--rose); opacity: 0.5; }
+  .lyric-rewrite {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(28px, 3.6vw, 42px);
+    line-height: 1.15;
+    color: var(--rose);
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  /* ─────────────────────────────────────────────
+     INTERLUDE · DANCING SLICE
+     ───────────────────────────────────────────── */
+  .interlude {
+    padding: 100px 0;
+    border-top: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .interlude-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .interlude-head .stamp {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    border: 1px solid var(--amber);
+    padding: 5px 10px;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+  .interlude-head h2 {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(38px, 5.5vw, 72px);
+    margin: 0;
+    line-height: 0.95;
+    color: var(--paper);
+    max-width: 760px;
+    text-wrap: balance;
+  }
+  .interlude-head h2 .amber { color: var(--amber); }
+  .interlude-head .meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.7;
+  }
+  .interlude-head .meta b { color: var(--paper); font-weight: 400; }
+
+  .dance-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #1a0e06;
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    overflow: hidden;
+  }
+  .dance-frame video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Crop the AFROLUNA watermark from the bottom of the clean dance loop */
+    transform: scale(1.08) translateY(-2%);
+    transform-origin: center center;
+  }
+  .dance-frame .wash {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(246,168,58,0.10) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(20,12,4,0.15) 0%, rgba(80,32,8,0.35) 100%);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .dance-frame .grain-local {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: overlay;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .dance-frame .rec {
+    position: absolute;
+    top: 16px; left: 16px;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(12,10,8,0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--paper);
+    z-index: 4;
+  }
+  .dance-frame .rec .dot {
+    width: 7px; height: 7px; background: var(--rose); border-radius: 50%;
+    animation: blink 1.2s ease-in-out infinite;
+  }
+  .dance-frame .corner {
+    position: absolute;
+    bottom: 16px; right: 18px;
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--paper);
+    opacity: 0.85;
+    z-index: 4;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+  }
+  .interlude-caption {
+    margin-top: 22px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .interlude-caption .hand {
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    color: var(--amber);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* ─────────────────────────────────────────────
+     FIELD JOURNAL (small dispatches)
+     ───────────────────────────────────────────── */
+  .dispatch-section {
+    padding: 100px 0;
+    border-top: 1px solid var(--line);
+  }
+  .dispatch-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 50px;
+    align-items: end;
+  }
+  .dispatch-head h2 {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: clamp(38px, 5.5vw, 64px);
+    margin: 0;
+    line-height: 1;
+    color: var(--paper);
+  }
+  .dispatch-head .note {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    line-height: 1.7;
+    letter-spacing: 0.05em;
+    text-align: right;
+  }
+  .dispatch-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 22px;
+  }
+  .card {
+    background: rgba(20,16,12,0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+    padding: 24px;
+    border-radius: 2px;
+    position: relative;
+    transition: border-color 0.2s ease, transform 0.25s ease;
+  }
+  .card:hover { border-color: var(--amber); transform: translateY(-3px); }
+  .card .idx {
+    position: absolute; top: 14px; right: 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    letter-spacing: 0.18em;
+  }
+  .card .k {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .card h3 {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(20px, 2.4vw, 28px);
+    margin: 0 0 10px;
+    line-height: 1.1;
+    color: var(--paper);
+    text-wrap: balance;
+  }
+  .card p {
+    color: var(--ink-dim);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .card .big-num {
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 900;
+    font-size: clamp(60px, 7vw, 100px);
+    line-height: 1;
+    color: var(--paper);
+    margin: 10px 0;
+  }
+  .card .big-num .unit {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--amber);
+    letter-spacing: 0.18em;
+    vertical-align: super;
+    margin-left: 6px;
+  }
+  .card.tall { grid-row: span 2; }
+  .span-4 { grid-column: span 4; }
+  .span-5 { grid-column: span 5; }
+  .span-6 { grid-column: span 6; }
+  .span-7 { grid-column: span 7; }
+  .span-8 { grid-column: span 8; }
+  .span-12 { grid-column: span 12; }
+
+  .card.dictionary p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--paper);
+  }
+  .card.dictionary p .term {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    color: var(--amber);
+    margin-right: 6px;
+  }
+  .card.dictionary p .arrow { color: var(--ink-dim); margin: 0 6px; }
+
+  .card.alleoo {
+    text-align: center;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .card.alleoo h3 {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: clamp(40px, 5vw, 64px);
+    color: var(--rose);
+    margin: 8px 0;
+  }
+  .card.alleoo .ar-greet {
+    font-family: 'Amiri', serif;
+    font-size: 22px;
+    color: var(--paper);
+    margin-bottom: 4px;
+  }
+  .card.alleoo .tap {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+  .card.weather .row {
+    display: flex; justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--line);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+  }
+  .card.weather .row:last-child { border-bottom: none; }
+  .card.weather .row .l { color: var(--ink-dim); }
+  .card.weather .row .v { color: var(--paper); }
+
+  /* ─────────────────────────────────────────────
+     GAME: PALM TREE CATCH
+     ───────────────────────────────────────────── */
+  .game-section {
+    padding: 110px 0;
+    border-top: 1px solid var(--line);
+  }
+  .game-head {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+    align-items: end;
+  }
+  .game-head h2 {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: clamp(42px, 6vw, 78px);
+    margin: 0;
+    line-height: 0.95;
+    color: var(--paper);
+    text-wrap: balance;
+  }
+  .game-head h2 .amber { color: var(--amber); }
+  .game-head .desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+    line-height: 1.7;
+  }
+  .game-head .desc b { color: var(--paper); font-weight: 400; }
+
+  .game-stage {
+    position: relative;
+    height: 520px;
+    background:
+      linear-gradient(180deg, rgba(20,16,12,0.85) 0%, rgba(40,28,18,0.65) 60%, rgba(80,40,24,0.55) 100%);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    cursor: crosshair;
+    user-select: none;
+  }
+  .game-stage::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 30% 80%, rgba(246,168,58,0.18) 0%, transparent 50%),
+      radial-gradient(circle at 75% 90%, rgba(238,90,120,0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .game-stage .stars {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(245,238,224,0.7), transparent),
+      radial-gradient(1px 1px at 70% 20%, rgba(245,238,224,0.6), transparent),
+      radial-gradient(1.5px 1.5px at 40% 50%, rgba(245,238,224,0.5), transparent),
+      radial-gradient(1px 1px at 88% 40%, rgba(245,238,224,0.7), transparent),
+      radial-gradient(1px 1px at 12% 65%, rgba(245,238,224,0.6), transparent),
+      radial-gradient(1px 1px at 55% 15%, rgba(245,238,224,0.5), transparent);
+    pointer-events: none;
+  }
+  .game-hud {
+    position: absolute; top: 18px; left: 18px; right: 18px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 12px;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .hud-pill {
+    background: rgba(12,10,8,0.7);
+    border: 1px solid var(--line);
+    padding: 8px 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .hud-pill .v {
+    color: var(--amber);
+    font-weight: 700;
+    margin-left: 8px;
+  }
+  .hud-pill.rose .v { color: var(--rose); }
+
+  .palm, .heart, .bomb {
+    position: absolute;
+    top: -50px;
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    font-size: 30px;
+    cursor: pointer;
+    will-change: transform;
+    transition: transform 0.1s ease;
+    user-select: none;
+  }
+  .palm:hover, .heart:hover { transform: scale(1.15); }
+  .palm.popped {
+    transform: scale(1.5);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .game-msg {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 4;
+    pointer-events: none;
+    width: 90%;
+  }
+  .game-msg .big {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: clamp(36px, 5vw, 60px);
+    color: var(--paper);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .game-msg .small {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .game-cta {
+    pointer-events: auto;
+    margin-top: 22px;
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--amber);
+    color: var(--bg);
+    border: none;
+    padding: 14px 26px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform 0.15s ease, background 0.2s ease;
+  }
+  .game-cta:hover { transform: translateY(-2px); background: var(--paper); }
+  .floater {
+    position: absolute;
+    pointer-events: none;
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    color: var(--rose);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    animation: rise 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
+    z-index: 6;
+  }
+  @keyframes rise {
+    from { opacity: 1; transform: translate(-50%, 0); }
+    to { opacity: 0; transform: translate(-50%, -90px); }
+  }
+  .reward-overlay {
+    position: absolute; inset: 0;
+    background: rgba(12,10,8,0.92);
+    backdrop-filter: blur(6px);
+    display: none;
+    place-items: center;
+    z-index: 10;
+    text-align: center;
+    padding: 30px;
+  }
+  .reward-overlay.show { display: grid; animation: fadeIn 0.5s ease; }
+  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+  .reward-overlay .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .reward-overlay .msg {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: clamp(28px, 4vw, 46px);
+    color: var(--paper);
+    margin: 0 0 16px;
+    line-height: 1.1;
+    text-wrap: balance;
+    max-width: 600px;
+  }
+  .reward-overlay .ps {
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    color: var(--rose);
+    margin: 14px 0 22px;
+  }
+  .reward-overlay button {
+    background: transparent; color: var(--paper);
+    border: 1px solid var(--paper);
+    padding: 10px 22px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .reward-overlay button:hover { background: var(--paper); color: var(--bg); }
+
+  /* ─────────────────────────────────────────────
+     LATE-NIGHT BUTTON
+     ───────────────────────────────────────────── */
+  .night-section {
+    padding: 110px 0;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .night-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 22px;
+  }
+  .night-title {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: clamp(42px, 6vw, 86px);
+    line-height: 0.95;
+    color: var(--paper);
+    margin: 0 auto 30px;
+    max-width: 920px;
+    text-wrap: balance;
+  }
+  .night-title .rose { color: var(--rose); }
+  .night-sub {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(22px, 2.6vw, 30px);
+    color: var(--amber);
+    margin-bottom: 40px;
+  }
+  .night-btn {
+    position: relative;
+    display: inline-block;
+    background: transparent;
+    color: var(--paper);
+    border: 1px solid var(--paper);
+    padding: 22px 50px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    overflow: hidden;
+  }
+  .night-btn::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--rose), var(--amber));
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+  .night-btn:hover::before { transform: translateY(0); }
+  .night-btn:hover { border-color: transparent; color: var(--bg); }
+  .night-btn.lit { background: linear-gradient(135deg, var(--rose), var(--amber)); color: var(--bg); border-color: transparent; font-weight: 700; }
+
+  .night-response {
+    margin-top: 36px;
+    min-height: 90px;
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: clamp(22px, 2.8vw, 32px);
+    color: var(--paper);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    line-height: 1.3;
+    max-width: 720px;
+    margin-left: auto; margin-right: auto;
+    text-wrap: balance;
+  }
+  .night-response.show { opacity: 1; }
+  .night-response .amber { color: var(--amber); }
+  .night-response .rose { color: var(--rose); }
+  .night-response .ps {
+    display: block;
+    font-family: 'Caveat', cursive;
+    font-style: normal;
+    color: var(--rose);
+    font-size: 0.7em;
+    margin-top: 14px;
+  }
+
+  /* ─────────────────────────────────────────────
+     POSTCARD
+     ───────────────────────────────────────────── */
+  .postcard-section {
+    padding: 110px 0;
+    border-top: 1px solid var(--line);
+  }
+  .postcard {
+    max-width: 820px;
+    margin: 0 auto;
+    position: relative;
+    background: var(--paper);
+    color: var(--bg);
+    padding: 50px 50px 40px;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(0,0,0,0.1);
+    transform: rotate(-1.2deg);
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.1 0 0 0 0 0.05 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .postcard::before, .postcard::after {
+    content: "";
+    position: absolute;
+    width: 100px; height: 18px;
+    background: rgba(246,168,58,0.55);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .postcard::before { top: -8px; left: 40px; transform: rotate(-4deg); }
+  .postcard::after { bottom: -8px; right: 60px; transform: rotate(3deg); }
+
+  .pc-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    padding-bottom: 14px; margin-bottom: 22px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .pc-from {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.65);
+  }
+  .pc-from b { color: var(--bg); font-weight: 700; display: block; font-size: 12px; margin-top: 4px; }
+  .pc-stamp {
+    background: var(--rose);
+    color: var(--paper);
+    padding: 6px 14px;
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transform: rotate(4deg);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  }
+  .pc-body {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(22px, 2.6vw, 28px);
+    line-height: 1.45;
+    color: var(--bg);
+  }
+  .pc-body p { margin: 0 0 14px; }
+  .pc-body .ar { font-family: 'Amiri', serif; font-size: 0.9em; color: #5a2a1a; }
+  .pc-body .amber { color: #b87212; font-style: italic; }
+  .pc-body .rose { color: #b22e4d; font-weight: 700; }
+  .pc-sig {
+    text-align: right;
+    margin-top: 24px;
+    font-family: 'Caveat', cursive;
+    font-size: clamp(34px, 4vw, 46px);
+    color: #b22e4d;
+    line-height: 1;
+  }
+  .pc-sig .small {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.55);
+    margin-top: 6px;
+  }
+
+  /* ─────────────────────────────────────────────
+     FOOTER
+     ───────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 50px 0 40px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.18em;
+    line-height: 1.9;
+  }
+  footer .heart { color: var(--rose); }
+  footer .row2 { font-size: 10px; opacity: 0.7; margin-top: 6px; }
+  footer .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0;
+    margin: 30px 0 24px;
+    width: 100%;
+  }
+  footer .marquee {
+    display: inline-flex;
+    gap: 40px;
+    animation: scroll 32s linear infinite;
+    white-space: nowrap;
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: clamp(20px, 2.4vw, 28px);
+    color: var(--paper);
+  }
+  footer .marquee span { display: inline-flex; align-items: center; gap: 16px; }
+  footer .marquee .dot {
+    width: 6px; height: 6px; background: var(--amber); border-radius: 50%;
+    display: inline-block;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ─────────────────────────────────────────────
+     TOAST
+     ───────────────────────────────────────────── */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 36px;
+    transform: translateX(-50%) translateY(20px);
+    padding: 14px 24px;
+    background: var(--paper);
+    color: var(--bg);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: all 0.35s ease;
+    z-index: 600;
+    pointer-events: none;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ─────────────────────────────────────────────
+     GLOBAL FLOATERS (page-level)
+     ───────────────────────────────────────────── */
+  .page-floater {
+    position: fixed;
+    pointer-events: none;
+    z-index: 300;
+    font-family: 'Caveat', cursive;
+    font-size: 28px;
+    color: var(--rose);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    animation: pageRise 2.2s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  @keyframes pageRise {
+    0% { opacity: 0; transform: translate(-50%, 0) scale(0.7); }
+    15% { opacity: 1; }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--dx,0px)), -180px) scale(1.1) rotate(var(--r,0deg)); }
+  }
+
+  /* ─────────────────────────────────────────────
+     RESPONSIVE
+     ───────────────────────────────────────────── */
+  @media (max-width: 780px) {
+    .section, .lyric-section, .dispatch-section, .game-section, .night-section, .postcard-section, .interlude { padding: 70px 0; }
+    .dance-frame { aspect-ratio: 4 / 3; }
+    .hero { padding: 80px 0 50px; min-height: 100vh; }
+    .hero-bottom { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .clock.center-block { grid-column: span 2; text-align: left; padding: 10px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 6px 0; }
+    .lyric-grid { grid-template-columns: 1fr; gap: 32px; }
+    .lyric-card { padding: 36px 24px; }
+    .dispatch-head { grid-template-columns: 1fr; }
+    .dispatch-head .note { text-align: left; }
+    .span-4, .span-5, .span-6, .span-7, .span-8 { grid-column: span 12; }
+    .game-head { grid-template-columns: 1fr; gap: 16px; }
+    .game-stage { height: 460px; }
+    .postcard { padding: 36px 24px 30px; }
+    .topbar { padding: 14px 18px; }
+    .audio-toggle .lbl-text { display: none; }
+    .wrap { padding: 0 18px; }
+    .mark { font-size: 16px; }
+    .intro-foot { font-size: 9px; padding: 0 18px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title { font-size: 18vw; }
+    .game-stage { height: 420px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .palm, .heart, .bomb { transition: none; }
+    .marquee { animation-duration: 60s; }
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- Background video + tint + grain -->
+  <video class="bg-video" id="bg-video" autoplay muted loop playsinline preload="auto" poster="">
+    <source src="awgazi.mp4" type="video/mp4" />
+  </video>
+  <div class="bg-tint"></div>
+  <div class="grain"></div>
+
+  <!-- ─────────── INTRO OVERLAY ─────────── -->
+  <div class="intro" id="intro">
+    <div class="intro-inner">
+      <div class="intro-eyebrow"><span class="pulse"></span>FOR ROUHI · LATE NIGHT EDITION · MAY 21, 2026</div>
+      <h1 class="intro-title">Alleooo,<br/><span class="red">kbeeda.</span></h1>
+      <p class="intro-sub">
+        Press play. The palm tree boy is going to sing about us<br/>
+        and the room is going to get <b>just a little warmer.</b><br/>
+        — Momen
+      </p>
+      <button class="intro-btn" id="intro-btn">
+        <span>Play the song</span>
+        <span class="arr">→</span>
+      </button>
+    </div>
+    <div class="intro-foot">
+      <span>JORDAN ⇋ MOROCCO</span>
+      <span>SIDE A · TRACK 01</span>
+    </div>
+  </div>
+
+  <!-- ─────────── TOP BAR ─────────── -->
+  <div class="topbar">
+    <div class="mark"><i>For Rouhi</i><span class="dot">.</span></div>
+    <button class="audio-toggle muted" id="audio-toggle" aria-label="Toggle audio">
+      <span class="eq"><span></span><span></span><span></span><span></span></span>
+      <span class="lbl-text" id="audio-label">SOUND OFF</span>
+    </button>
+  </div>
+
+  <main>
+
+    <!-- ─────────── HERO ─────────── -->
+    <section class="hero wrap">
+      <div class="hero-top">
+        <div class="eyebrow"><span class="live"></span>NOW PLAYING — AWGAZI · PALM MONKEY × RUSSI</div>
+        <div class="hero-tag">
+          <b>VOL. 02 · ISSUE 21</b><br/>
+          A one-night-only edition<br/>
+          printed for Fatimazahra
+        </div>
+      </div>
+
+      <div class="hero-mid">
+        <div class="hero-greet"><span id="hero-greet-text">Good evening,</span> <span class="who hand">my</span> <span class="who">Fati.</span></div>
+        <h1 class="hero-title">
+          You don't<br/>
+          <span class="strike">feel like</span><span class="amber">are</span><br/>
+          <i>my peace.</i>
+        </h1>
+      </div>
+
+      <div class="hero-bottom">
+        <div class="clock">
+          <div class="lbl"><span class="flag">🇯🇴</span> AMMAN · ME</div>
+          <div class="t" id="clock-jo">--:--<span class="ampm" id="ampm-jo">--</span></div>
+          <div class="sub" id="status-jo">—</div>
+        </div>
+        <div class="clock center-block">
+          <div class="lbl">DISTANCE</div>
+          <div class="arrow">↗ &nbsp;<i>4,150</i> &nbsp;↘</div>
+          <div class="km">KILOMETRES — STILL THE SAME SKY</div>
+        </div>
+        <div class="clock">
+          <div class="lbl"><span class="flag">🇲🇦</span> CASA · YOU</div>
+          <div class="t" id="clock-ma">--:--<span class="ampm" id="ampm-ma">--</span></div>
+          <div class="sub" id="status-ma">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── LYRIC RECONTEXT ─────────── -->
+    <section class="lyric-section wrap">
+      <div class="lyric-grid">
+        <div class="lyric-side">
+          <div class="stamp">SIDE NOTE · 01</div>
+          <h2>The song says it.<br/>I'm just signing my name to it.</h2>
+          <p>Russi keeps singing <b>"you feel like peace to me"</b> like he's reading my mind. So I borrowed the line, scratched out a word, and gave it back to you. Same melody. New chorus.</p>
+          <p>If you press play and the room gets quiet for a second — that's just me missing you across the Atlantic.</p>
+        </div>
+        <div class="lyric-card">
+          <div class="lyric-from">AWGAZI · 02:14 · LINE 14</div>
+          <p class="lyric-quote">"You feel like <span class="amber">peace</span> to me."</p>
+          <div class="lyric-arrow"><span class="line"></span>RE-WRITTEN FOR FATI<span class="line"></span></div>
+          <p class="lyric-rewrite">You don't <i>feel like</i> peace, ya rouhi —<br/>you ARE the peace. Of mine.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── DISPATCHES ─────────── -->
+    <section class="dispatch-section wrap">
+      <div class="dispatch-head">
+        <h2>Field notes from <i>4,150 km away.</i></h2>
+        <div class="note">
+          STATUS: HORNY. HOMESICK. FOR A HOME<br/>
+          THAT IS A PERSON.<br/>
+          — TODAY, MAY 21, 2026 · 1 OF 1
+        </div>
+      </div>
+
+      <div class="dispatch-grid">
+        <!-- big number: days since -->
+        <div class="card span-4">
+          <span class="idx">01 / 06</span>
+          <div class="k">DAYS SINCE I CALLED YOU</div>
+          <div class="big-num" id="days-num">0<span class="unit">DAYS</span></div>
+          <p>Since the last Alleooo. Unacceptable. Refresh — this clock is real.</p>
+        </div>
+
+        <!-- alleoo card (click for a call) -->
+        <div class="card span-4 alleoo" id="alleoo-card">
+          <span class="idx">02 / 06</span>
+          <div class="k">ONE-TAP SUMMON</div>
+          <div class="ar-greet">السلام عليكي يا قلبي</div>
+          <h3>Alleooo?</h3>
+          <p>(tap me. I'll ring you back. promise.)</p>
+          <div class="tap">↑ TAP TO RING ROUHI</div>
+        </div>
+
+        <!-- dictionary -->
+        <div class="card span-4 dictionary">
+          <span class="idx">03 / 06</span>
+          <div class="k">PRIVATE DICTIONARY</div>
+          <h3>Words only we know.</h3>
+          <p><span class="term">Rouhi</span><span class="arrow">→</span>my soul, literal.</p>
+          <p><span class="term">Kbeeda</span><span class="arrow">→</span>my liver. (don't ask science.)</p>
+          <p><span class="term">3omry</span><span class="arrow">→</span>my whole life.</p>
+          <p><span class="term">Kanbgheek</span><span class="arrow">→</span>still. always. yes.</p>
+        </div>
+
+        <!-- weather (synced clocks/work) -->
+        <div class="card span-5 weather">
+          <span class="idx">04 / 06</span>
+          <div class="k">SYNC SCHEDULE</div>
+          <h3>The little overlap.</h3>
+          <p style="margin-bottom: 14px;">Your Mon-Fri 9–5 and my Sun-Thu 9–5 leave us a tiny window — but it's <b style="color:var(--paper);">our</b> window. I'll be waiting.</p>
+          <div class="row"><span class="l">YOUR WORKWEEK</span><span class="v">MON → FRI · 09:00–17:00</span></div>
+          <div class="row"><span class="l">MY WORKWEEK</span><span class="v">SUN → THU · 09:00–17:00</span></div>
+          <div class="row"><span class="l">SHARED WEEKEND</span><span class="v">FRIDAY EVENING ⇋ SATURDAY</span></div>
+          <div class="row"><span class="l">BEST CALL WINDOW</span><span class="v" id="best-call">after 19:00 AMMAN ≈ 17:00 CASA</span></div>
+        </div>
+
+        <!-- forecast card -->
+        <div class="card span-7">
+          <span class="idx">05 / 06</span>
+          <div class="k">TONIGHT'S FORECAST · CASABLANCA</div>
+          <h3>Light Atlantic breeze. <i>Heavy on the wanting.</i></h3>
+          <p style="margin-top:14px;">A 100% chance of someone in Jordan thinking about you while he's supposed to be sleeping. Localised storm of <i style="color:var(--amber);">kbeeda</i> in your inbox. Visibility low because you're the only thing in focus.</p>
+          <p style="margin-top:10px; font-family: 'Caveat', cursive; font-size: 22px; color: var(--rose);">…also, today the music seems a little loud, no?</p>
+        </div>
+
+        <!-- love declarations -->
+        <div class="card span-12">
+          <span class="idx">06 / 06</span>
+          <div class="k">DECLARATIONS · PRINTED IN PERMANENT INK</div>
+          <h3 style="font-size: clamp(22px, 3vw, 36px); max-width: 880px;">
+            <i>Kanbgheek</i> on Mondays at 09:00 when you log on, and <i>kan7ma9 3leek</i> at 23:00 when neither of us can sleep, and every <i style="color:var(--rose);">Alleooo</i> in between.
+          </h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── GAME ─────────── -->
+    <section class="game-section wrap">
+      <div class="game-head">
+        <h2>Catch the palm trees.<br/><i class="amber">Send me kisses across the sea.</i></h2>
+        <div class="desc">
+          PALMS DROP FROM THE SKY (this is what Palm Monkey's about, technically).<br/>
+          Tap them to turn each one into a <b>virtual kiss</b> for me. Reach <b>15 kisses</b> in 30 seconds and the palm tree boy unlocks something for you.
+        </div>
+      </div>
+      <div class="game-stage" id="game-stage">
+        <div class="stars"></div>
+        <div class="game-hud">
+          <div class="hud-pill">KISSES <span class="v" id="game-score">0</span></div>
+          <div class="hud-pill rose">TIME <span class="v" id="game-time">30s</span></div>
+        </div>
+        <div class="game-msg" id="game-msg">
+          <div class="big italic" id="game-msg-big">Ready, ya rouhi?</div>
+          <div class="small" id="game-msg-small">Tap to send 15 kisses in 30 seconds.</div>
+          <button class="game-cta" id="game-start">▶ DROP THE PALMS</button>
+        </div>
+
+        <div class="reward-overlay" id="reward-overlay">
+          <div>
+            <div class="label">★ UNLOCKED · LEVEL CLEARED ★</div>
+            <h3 class="msg" id="reward-msg">15 kisses delivered. Casa to Amman. Same sky.</h3>
+            <div class="ps" id="reward-ps">…Russi keeps singing peace, peace, peace. Same.</div>
+            <button id="reward-close">CLOSE & PLAY AGAIN</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── NIGHT BUTTON ─────────── -->
+    <section class="night-section wrap">
+      <div class="night-eyebrow">— SECTION 4 · AFTER MIDNIGHT —</div>
+      <h2 class="night-title">
+        It is late. The neighbours are asleep.<br/>
+        <span class="rose"><i>And tonight the music seems so loud?</i></span>
+      </h2>
+      <div class="night-sub">↓ press the button if you agree ↓</div>
+      <button class="night-btn" id="night-btn">…SAME TO YOU TONIGHT.</button>
+      <div class="night-response" id="night-response">
+        Then turn the lamp down,<br/>
+        come closer to the camera,<br/>
+        and let the <span class="amber">palm tree boy</span> sing the rest.<br/>
+        <span class="ps">(I love both of your lips. And not just the ones that say my name.)</span>
+      </div>
+    </section>
+
+    <!-- ─────────── POSTCARD ─────────── -->
+    <section class="postcard-section wrap">
+      <div class="postcard">
+        <div class="pc-header">
+          <div class="pc-from">
+            POSTED FROM<br/>
+            <b>AMMAN, JORDAN — 21.05.2026</b>
+          </div>
+          <div class="pc-stamp">FOR ROUHI ONLY</div>
+        </div>
+        <div class="pc-body">
+          <p><span class="ar">السلام عليكي يا كبيدتي،</span></p>
+          <p>I made you another one of these because — well, I had a <span class="amber">whole song</span> stuck in my head all day, and every single line was about you. Russi kept saying <i>"you feel like peace to me"</i> and I kept correcting him out loud, alone, in my apartment, like a maniac.</p>
+          <p>It's a Thursday. You're at work. I'm at work. The minute you clock out, I'll be waiting. Bring the lamp closer to your face when you call — I want to count your eyelashes again.</p>
+          <p>Also yes, today seems <span class="rose">a little loud, ya 3omry.</span> Just saying.</p>
+          <p style="margin-top: 24px;">Take this hug 🫂 and this kiss 💋 and one extra <span class="amber">kbeeda</span> for the road.</p>
+        </div>
+        <div class="pc-sig">
+          — Momen.
+          <span class="small">YOURS · AMMAN · ALLEOOO</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─────────── FOOTER ─────────── -->
+  <footer>
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <span><span class="dot"></span> KANBGHEEK </span>
+        <span><span class="dot"></span> KAN7MA9 3LEEK </span>
+        <span><span class="dot"></span> ALLEOOO </span>
+        <span><span class="dot"></span> KBEEDA </span>
+        <span><span class="dot"></span> 3OMRY </span>
+        <span><span class="dot"></span> LALET ROUHI </span>
+        <span><span class="dot"></span> BEBE </span>
+        <span><span class="dot"></span> KANBGHEEK </span>
+        <span><span class="dot"></span> KAN7MA9 3LEEK </span>
+        <span><span class="dot"></span> ALLEOOO </span>
+        <span><span class="dot"></span> KBEEDA </span>
+        <span><span class="dot"></span> 3OMRY </span>
+        <span><span class="dot"></span> LALET ROUHI </span>
+        <span><span class="dot"></span> BEBE </span>
+      </div>
+    </div>
+    <div>MADE WITH <span class="heart">❤</span> IN AMMAN · FOR FATIMAZAHRA · 21 MAY 2026</div>
+    <div class="row2">EDITION OF ONE · PRESS R TO RING · PRESS A TO ALLEOOO</div>
+  </footer>
+
+  <!-- ─────────── INCOMING CALL OVERLAY ─────────── -->
+  <div class="reward-overlay" id="call-overlay" style="position:fixed;">
+    <div style="max-width: 360px;">
+      <div class="label">★ INCOMING VIDEO CALL ★</div>
+      <div style="
+        width: 110px; height: 110px;
+        margin: 6px auto 18px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--rose), var(--amber));
+        display: grid; place-items: center;
+        font-family: 'Caveat', cursive;
+        font-size: 56px;
+        color: var(--paper);
+        box-shadow: 0 0 0 6px rgba(238,90,120,0.25);
+        animation: pulseRing 1.4s ease-out infinite;
+      ">F</div>
+      <h3 class="msg" style="font-size: 32px;">Fati is calling…</h3>
+      <div style="font-family: 'Space Mono', monospace; font-size: 10px; color: var(--ink-dim); letter-spacing: 0.22em; margin-bottom: 24px;">
+        <span style="display:inline-block;width:7px;height:7px;background:#4ade80;border-radius:50%;margin-right:6px;animation: blink 1s infinite;"></span>
+        LIVE · FROM CASABLANCA
+      </div>
+      <div style="display: flex; gap: 24px; justify-content: center;">
+        <button id="call-decline" style="width:56px;height:56px;border-radius:50%;border:none;background:#d23838;color:#fff;font-size:24px;cursor:pointer;">✕</button>
+        <button id="call-accept" style="width:56px;height:56px;border-radius:50%;border:none;background:#4ade80;color:#fff;font-size:24px;cursor:pointer;animation:pulseRing 1.4s ease-out infinite;">📞</button>
+      </div>
+    </div>
+  </div>
+  <style>
+    @keyframes pulseRing {
+      0% { box-shadow: 0 0 0 0 rgba(238,90,120,0.5); }
+      100% { box-shadow: 0 0 0 28px rgba(238,90,120,0); }
+    }
+  </style>
+
+  <!-- ─────────── TOAST ─────────── -->
+  <div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ────────────── INTRO / AUDIO UNLOCK ──────────────
+  const intro = document.getElementById('intro');
+  const introBtn = document.getElementById('intro-btn');
+  const vid = document.getElementById('bg-video');
+  const audioToggle = document.getElementById('audio-toggle');
+  const audioLabel = document.getElementById('audio-label');
+
+  function startExperience() {
+    intro.classList.add('gone');
+    vid.muted = false;
+    vid.volume = 0;
+    // fade in volume
+    const fadeIn = () => {
+      vid.volume = Math.min(1, vid.volume + 0.04);
+      if (vid.volume < 0.95) setTimeout(fadeIn, 80);
+    };
+    const playP = vid.play();
+    if (playP && playP.then) {
+      playP.then(() => {
+        fadeIn();
+        audioToggle.classList.remove('muted');
+        audioLabel.textContent = 'NOW PLAYING';
+      }).catch(() => {
+        // fallback: stay muted
+        audioToggle.classList.add('muted');
+        audioLabel.textContent = 'SOUND OFF — TAP';
+      });
+    }
+  }
+  introBtn.addEventListener('click', startExperience);
+
+  audioToggle.addEventListener('click', () => {
+    if (vid.muted || vid.paused) {
+      vid.muted = false;
+      vid.play();
+      audioToggle.classList.remove('muted');
+      audioLabel.textContent = 'NOW PLAYING';
+    } else {
+      vid.muted = true;
+      audioToggle.classList.add('muted');
+      audioLabel.textContent = 'SOUND OFF';
+    }
+  });
+
+  // ────────────── TIME-AWARE CLOCKS / GREETING ──────────────
+  function timeIn(zone) {
+    const fmt = new Intl.DateTimeFormat('en-US', {
+      timeZone: zone, hour: 'numeric', minute: '2-digit', hour12: true
+    });
+    const parts = fmt.formatToParts(new Date());
+    const h = parts.find(p => p.type === 'hour').value;
+    const m = parts.find(p => p.type === 'minute').value;
+    const ap = parts.find(p => p.type === 'dayPeriod').value;
+    return { h, m, ap };
+  }
+  function hourIn(zone) {
+    const fmt = new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: 'numeric', hour12: false });
+    return parseInt(fmt.format(new Date()), 10);
+  }
+  function dayIn(zone) {
+    return new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'short' }).format(new Date());
+  }
+  function statusFor(zone) {
+    const day = dayIn(zone);
+    const hr = hourIn(zone);
+    const isJordan = zone === 'Asia/Amman';
+    const workDays = isJordan ? ['Sun','Mon','Tue','Wed','Thu'] : ['Mon','Tue','Wed','Thu','Fri'];
+    const isWorkDay = workDays.includes(day);
+    if (isWorkDay && hr >= 9 && hr < 17) return '● at work';
+    if (hr >= 0 && hr < 6) return 'asleep · probably';
+    if (hr >= 6 && hr < 9) return 'just woke up';
+    if (hr >= 17 && hr < 22) return '○ off-shift · free';
+    return 'winding down';
+  }
+  function greetingFor(hr) {
+    if (hr >= 5 && hr < 12) return 'Good morning,';
+    if (hr >= 12 && hr < 17) return 'Good afternoon,';
+    if (hr >= 17 && hr < 22) return 'Good evening,';
+    return 'It is very late,';
+  }
+  function tick() {
+    const jo = timeIn('Asia/Amman');
+    const ma = timeIn('Africa/Casablanca');
+    document.getElementById('clock-jo').innerHTML = jo.h + ':' + jo.m + '<span class="ampm">' + jo.ap + '</span>';
+    document.getElementById('clock-ma').innerHTML = ma.h + ':' + ma.m + '<span class="ampm">' + ma.ap + '</span>';
+    document.getElementById('status-jo').textContent = statusFor('Asia/Amman');
+    document.getElementById('status-ma').textContent = statusFor('Africa/Casablanca');
+    // Greeting uses HER time (Morocco) because the greeting is FROM ME TO HER
+    const hrMa = hourIn('Africa/Casablanca');
+    document.getElementById('hero-greet-text').textContent = greetingFor(hrMa);
+  }
+  tick();
+  setInterval(tick, 30000);
+
+  // ────────────── DAYS-SINCE-LAST-CALL  (uses localStorage so it ticks) ──────────────
+  // We seed with today, and add a little jitter so it doesn't feel static.
+  function updateDays() {
+    // The "joke" is: this should always read 0 — because we're literally about to call.
+    // But we use the local clock to compute hours since the most recent midnight
+    // and convert that into a cheeky fractional number.
+    const now = new Date();
+    const secsToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+    const frac = (secsToday / 86400);
+    const num = (Math.floor(frac * 10) / 10).toFixed(1);
+    document.getElementById('days-num').innerHTML =
+      num + '<span class="unit">DAYS</span>';
+  }
+  updateDays();
+  setInterval(updateDays, 1000 * 30);
+
+  // ────────────── TOAST ──────────────
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+  }
+
+  // ────────────── PAGE FLOATERS ──────────────
+  function pageFloater(x, y, text, color) {
+    const el = document.createElement('div');
+    el.className = 'page-floater';
+    el.textContent = text;
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.style.setProperty('--dx', (Math.random()*120 - 60) + 'px');
+    el.style.setProperty('--r', (Math.random()*30 - 15) + 'deg');
+    if (color) el.style.color = color;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2400);
+  }
+
+  // ────────────── CALL OVERLAY ──────────────
+  const callOv = document.getElementById('call-overlay');
+  document.getElementById('alleoo-card').addEventListener('click', () => {
+    callOv.classList.add('show');
+  });
+  document.getElementById('call-decline').addEventListener('click', () => {
+    callOv.classList.remove('show');
+  });
+  document.getElementById('call-accept').addEventListener('click', () => {
+    callOv.classList.remove('show');
+    showToast('💕 ALLEOOOOOO 💕');
+    for (let i = 0; i < 24; i++) {
+      setTimeout(() => {
+        const x = Math.random() * window.innerWidth;
+        const y = window.innerHeight * 0.35 + Math.random() * 220;
+        pageFloater(x, y, ['💋','❤','💕','kbeeda','rouhi','3omry'][Math.floor(Math.random()*6)]);
+      }, i * 55);
+    }
+  });
+
+  // ────────────── KEYBOARD ──────────────
+  document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() === 'r') {
+      callOv.classList.add('show');
+    }
+    if (e.key.toLowerCase() === 'a') {
+      // burst
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          const x = Math.random() * window.innerWidth;
+          const y = window.innerHeight * 0.4 + Math.random() * 200;
+          pageFloater(x, y, 'Alleoooo', '#f6a83a');
+        }, i * 60);
+      }
+    }
+  });
+
+  // ────────────── GAME ──────────────
+  const stage = document.getElementById('game-stage');
+  const scoreEl = document.getElementById('game-score');
+  const timeEl = document.getElementById('game-time');
+  const startBtn = document.getElementById('game-start');
+  const msgWrap = document.getElementById('game-msg');
+  const msgBig = document.getElementById('game-msg-big');
+  const msgSmall = document.getElementById('game-msg-small');
+  const rewardOv = document.getElementById('reward-overlay');
+  const rewardMsg = document.getElementById('reward-msg');
+  const rewardPs = document.getElementById('reward-ps');
+  const rewardClose = document.getElementById('reward-close');
+
+  let gameRunning = false;
+  let score = 0;
+  let timeLeft = 30;
+  let dropInt, tickInt;
+
+  function resetGame() {
+    score = 0;
+    timeLeft = 30;
+    scoreEl.textContent = '0';
+    timeEl.textContent = '30s';
+    stage.querySelectorAll('.palm,.heart,.floater').forEach(n => n.remove());
+  }
+
+  function dropPalm() {
+    const rect = stage.getBoundingClientRect();
+    const isBomb = Math.random() < 0.12; // occasional 'distraction'
+    const el = document.createElement('div');
+    el.className = isBomb ? 'bomb' : 'palm';
+    el.textContent = isBomb ? '☁️' : '🌴';
+    el.style.left = (Math.random() * (rect.width - 50)) + 'px';
+    el.style.top = '-50px';
+    el.style.fontSize = (24 + Math.random()*14) + 'px';
+    stage.appendChild(el);
+
+    const duration = 2600 + Math.random() * 1800;
+    const start = performance.now();
+    const drift = (Math.random() * 60 - 30);
+    function fall(now) {
+      const t = (now - start) / duration;
+      if (!el.isConnected) return;
+      if (t >= 1) { el.remove(); return; }
+      const y = -50 + t * (rect.height + 80);
+      const x = parseFloat(el.style.left) + Math.sin(t * Math.PI * 2) * drift * 0.05;
+      el.style.transform = 'translate(' + (Math.sin(t*6) * 8) + 'px, ' + y + 'px) rotate(' + (Math.sin(t*4)*14) + 'deg)';
+      if (gameRunning) requestAnimationFrame(fall);
+    }
+    requestAnimationFrame(fall);
+
+    el.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      if (!gameRunning) return;
+      const rrect = el.getBoundingClientRect();
+      const sx = rrect.left + rrect.width/2 - stage.getBoundingClientRect().left;
+      const sy = rrect.top  + rrect.height/2 - stage.getBoundingClientRect().top;
+      if (isBomb) {
+        // miss penalty
+        score = Math.max(0, score - 1);
+        scoreEl.textContent = score;
+        floater(sx, sy, '−1', '#ee5a78');
+      } else {
+        score++;
+        scoreEl.textContent = score;
+        const labels = ['💋', '❤', '+1 kbeeda', '+1 kiss', 'rouhi', '+1'];
+        floater(sx, sy, labels[Math.floor(Math.random()*labels.length)], '#f6a83a');
+      }
+      el.classList.add('popped');
+      setTimeout(() => el.remove(), 300);
+    }, { once: true });
+  }
+
+  function floater(x, y, text, color) {
+    const f = document.createElement('div');
+    f.className = 'floater';
+    f.textContent = text;
+    f.style.left = x + 'px';
+    f.style.top  = y + 'px';
+    if (color) f.style.color = color;
+    stage.appendChild(f);
+    setTimeout(() => f.remove(), 1400);
+  }
+
+  function endGame() {
+    gameRunning = false;
+    clearInterval(dropInt);
+    clearInterval(tickInt);
+    if (score >= 15) {
+      // reward
+      rewardMsg.textContent = score + ' kisses delivered. Casa to Amman. Same sky.';
+      rewardPs.textContent = '…Russi keeps singing peace, peace, peace. So do I.';
+    } else {
+      rewardMsg.textContent = score + ' kisses. The palm tree boy says: not bad, try again ya rouhi.';
+      rewardPs.textContent = 'You only need 15 to unlock it. The palms are patient.';
+    }
+    rewardOv.classList.add('show');
+  }
+
+  function startGame() {
+    resetGame();
+    msgWrap.style.display = 'none';
+    gameRunning = true;
+    dropInt = setInterval(() => {
+      if (gameRunning) dropPalm();
+    }, 360);
+    tickInt = setInterval(() => {
+      timeLeft--;
+      timeEl.textContent = timeLeft + 's';
+      if (timeLeft <= 0) endGame();
+    }, 1000);
+  }
+  startBtn.addEventListener('click', startGame);
+  rewardClose.addEventListener('click', () => {
+    rewardOv.classList.remove('show');
+    msgWrap.style.display = 'block';
+    msgBig.textContent = 'Again?';
+    msgSmall.textContent = 'Tap below — the palms come back.';
+    startBtn.textContent = '▶ DROP AGAIN';
+  });
+
+  // ────────────── NIGHT BUTTON ──────────────
+  const nightBtn = document.getElementById('night-btn');
+  const nightResp = document.getElementById('night-response');
+  nightBtn.addEventListener('click', () => {
+    nightBtn.classList.add('lit');
+    nightBtn.textContent = '★ CONFIRMED · MUSIC LOUD ★';
+    nightResp.classList.add('show');
+    // soft burst
+    const r = nightBtn.getBoundingClientRect();
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => {
+        pageFloater(
+          r.left + r.width/2 + (Math.random()*200 - 100),
+          r.top + (Math.random()*40 - 20),
+          ['💋','🔥','❤','🌹','🎶'][Math.floor(Math.random()*5)],
+          ['#ee5a78','#f6a83a'][Math.floor(Math.random()*2)]
+        );
+      }, i * 70);
+    }
+    showToast('🎵 …same to you tonight, 3omry.');
+  });
+
+  // ────────────── DICT FLOATERS ON CLICK ──────────────
+  document.querySelectorAll('.dictionary .term').forEach(t => {
+    t.style.cursor = 'pointer';
+    t.addEventListener('click', (e) => {
+      const r = t.getBoundingClientRect();
+      pageFloater(r.left + r.width/2, r.top, t.textContent + ' ❤', '#f6a83a');
+    });
+  });
+
+  // ────────────── SUBTLE AMBIENT WORDS ──────────────
+  const words = ['kbeeda','rouhi','alleooo','kanbgheek','3omry','🌹'];
+  setInterval(() => {
+    if (document.hidden) return;
+    if (Math.random() > 0.5) return;
+    const x = Math.random() * window.innerWidth;
+    const y = window.innerHeight - 80;
+    const el = document.createElement('div');
+    el.className = 'page-floater';
+    el.textContent = words[Math.floor(Math.random()*words.length)];
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.style.fontSize = (18 + Math.random()*10) + 'px';
+    el.style.opacity = '0.55';
+    el.style.color = '#f6a83a';
+    el.style.setProperty('--dx', (Math.random()*100 - 50)+'px');
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2400);
+  }, 6500);
+
+  // ────────────── DANCE INTERLUDE LOOP (lyric-free segment only) ──────────────
+  // The full lyrics video has burnt-in subtitles. The outro from 160s→163.5s
+  // shows the dancer with no text. We loop just that slice.
+  const danceVid = document.getElementById('dance-vid');
+  if (danceVid) {
+    const LOOP_IN = 160.0;
+    const LOOP_OUT = 163.4;
+    const seek = () => {
+      try { danceVid.currentTime = LOOP_IN; } catch (e) {}
+    };
+    danceVid.addEventListener('loadedmetadata', seek);
+    danceVid.addEventListener('seeked', () => {
+      // pre-roll: ensure we start INSIDE the lyric-free window
+      if (danceVid.currentTime < LOOP_IN - 0.1 || danceVid.currentTime > LOOP_OUT + 0.5) {
+        // already corrected by seek()
+      }
+    });
+    danceVid.addEventListener('timeupdate', () => {
+      if (danceVid.currentTime >= LOOP_OUT) seek();
+      if (danceVid.currentTime < LOOP_IN - 0.1) seek();
+    });
+    // Play once metadata is ready (some browsers stall on a fresh seek)
+    const tryPlay = () => danceVid.play().catch(()=>{});
+    danceVid.addEventListener('canplay', tryPlay, { once: true });
+    if (danceVid.readyState >= 1) seek();
+  }
+
+  // ────────────── BG VIDEO RESILIENCE ──────────────
+  // If video fails or pauses, restart it on next interaction.
+  vid.addEventListener('pause', () => {
+    if (!intro.classList.contains('gone')) return;
+    // keep it going
+    vid.play().catch(()=>{});
+  });
+})();
+</script>
+</body>
+</html>
